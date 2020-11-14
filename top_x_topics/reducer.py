@@ -2,9 +2,10 @@
 
 import sys
 from heapq import heappush, heappushpop
+# variables to keep track of tag, flag and top X topics
+NUM_OF_TOPICS=10
 
 heap = []
-
 current_tag = None
 current_flag = None
 
@@ -12,10 +13,10 @@ for line in sys.stdin:
         flag_tag,topic,score = line.strip().split()
         score=int(score)
         flag,tag =flag_tag.split(sep=":")
-
+        # intial values for the flag and tag
         if current_tag==None:current_tag=tag
         if current_flag==None:current_flag=flag
-
+        # if any of them changed reset everything again
         if  current_tag!=tag or current_flag!=flag:
                 top_topics = sorted(heap, reverse=True) 
                 top_topics=[str(element) for element in top_topics]
@@ -25,7 +26,8 @@ for line in sys.stdin:
                 current_flag=flag
                 current_tag=tag
                 heap=[]
-        if len(heap) < 5:
+        # fill the heap till it reachs max topics then replace the minimum
+        if len(heap) < NUM_OF_TOPICS:
                 heappush(heap, (score,topic))
         else:
                 heappushpop(heap, (score,topic))
