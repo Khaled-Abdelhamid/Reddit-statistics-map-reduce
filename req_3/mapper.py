@@ -4,6 +4,7 @@ import string
 import re
 import json
 
+# common stop words to filter the body content
 stop_words = (
     "ourselves",
     "hers",
@@ -137,13 +138,18 @@ stop_words = (
 for line in sys.stdin:
     content = json.loads(line)
     body_words = content["body"].split()
+    # remove any special character
     body = [
         re.sub("[^A-Za-z0-9]+", "", word).lower()
         for word in body_words
         if re.sub("[^A-Za-z0-9]+", "", word).lower() not in stop_words
     ]
+
+    # read up and down votes of this comment
     ups = content["ups"]
     downs = content["downs"]
+
+    # for each word in the body stream the word, the upvotes and the downvotes for the comment
     for word in body:
         if word:
             print(word.lower(), ups, downs, sep="\t")

@@ -2,8 +2,12 @@
 import json
 import sys
 
+# count of all comments
 counter = 0
+
+# count of edited comments only
 edited_count = 0
+
 for line in sys.stdin:
     data = json.loads(line)
     edited = data["edited"]
