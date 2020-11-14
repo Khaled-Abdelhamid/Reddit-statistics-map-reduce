@@ -6,4 +6,4 @@ import json
 for line in sys.stdin:
         content=json.loads(line)
         # print(content['subreddit'], abs(content['ups'])+abs(content['downs']), sep='\t')
-        print(content['subreddit'], 1 , sep='\t')
+        print(content['author'], 1 ,content['ups'] ,content['downs'], sep='\t')

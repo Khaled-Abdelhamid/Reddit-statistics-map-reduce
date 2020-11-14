@@ -5,11 +5,11 @@ export HADOOP_HOME=/hadoop
 export PATH=${JAVA_HOME}/bin:${HADOOP_HOME}/bin:${PATH}
 export HADOOP_CLASSPATH=${JAVA_HOME}/lib/tools.jar:${HADOOP_HOME}/share/hadoop/tools/lib/*
 
-code="top_subreddits"
-input="output/subreddit_frequency"
-input_file="part-*"
+code="users_frequency"
+input="input"
+input_file="big6"
 mappers=5
-reducers=1
+reducers=3
 
 hadoop fs -rm -r $code
 yes | rm -r output/$code
@@ -32,4 +32,3 @@ hadoop org.apache.hadoop.streaming.HadoopStreaming -D mapred.map.tasks=$mappers 
     -reducer reducer.py
 
 hadoop fs -get output/$code output/$code
-mv output/$code/part-00000 output/$code/top_subreddits

@@ -29,7 +29,7 @@ hadoop fs -put $input/$input_file $input
 # hadoop fs -put output/top_subreddits/* top_subreddits
 
 hadoop org.apache.hadoop.streaming.HadoopStreaming -D mapred.map.tasks=$mappers -D mapred.reduce.tasks=$reducers\
-    -files $code/mapper.py,$code/reducer.py,output/top_subreddits/part-00000 \
+    -files $code/mapper.py,$code/reducer.py,output/top_subreddits/top_subreddits,output/top_x_users/top_users\
     -input $input/$input_file \
     -output output/$code \
     -mapper mapper.py \

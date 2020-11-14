@@ -38,17 +38,24 @@ def score(content:dict)->int:
 
 # this is made to read and cahce the top subreddits aquired from the previous step
 subreddits=[]
-with open("part-00000") as fp: 
-        logging.info("file read successfully")
+with open("top_subreddits") as fp: 
         Lines = fp.readlines() 
         for line in Lines: 
                 subreddit,_=line.split()
                 subreddits.append(subreddit)
 
+users=[]
+with open("top_users") as fp: 
+        Lines = fp.readlines() 
+        for line in Lines: 
+                user,_,_,_=line.split()
+                users.append(user)
+
+
 for line in sys.stdin:
         content=json.loads(line)
         #check if the subreddit is in the top 100 or not
-        if content['subreddit'] in subreddits:
+        if content['subreddit'] in subreddits and content['author'] in users:
                 # for each post preprocess the body 
                 topics=Preprocess_Body(content['body'])          
                 for topic in topics:
